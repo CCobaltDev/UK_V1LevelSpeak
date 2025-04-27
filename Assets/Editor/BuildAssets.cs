@@ -7,6 +7,8 @@ public class BuildAssets : MonoBehaviour
     [MenuItem("Assets/Build AssetBundle")]
     static void BuildBundles()
     {
+        if (!Directory.Exists("AssetBundleOut"))
+            Directory.CreateDirectory("AssetBundleOut");
         AssetBundleBuild[] buildDef = new AssetBundleBuild[1];
         buildDef[0].assetBundleName = "LevelTitles";
         buildDef[0].assetNames = Directory.GetFiles("Assets/Audio", "*.wav", SearchOption.AllDirectories);
