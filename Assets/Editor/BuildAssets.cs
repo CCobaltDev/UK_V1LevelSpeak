@@ -12,6 +12,6 @@ public class BuildAssets : MonoBehaviour
         AssetBundleBuild[] buildDef = new AssetBundleBuild[1];
         buildDef[0].assetBundleName = "LevelTitles";
         buildDef[0].assetNames = Directory.GetFiles("Assets/Audio", "*.wav", SearchOption.AllDirectories);
-        BuildPipeline.BuildAssetBundles("AssetBundleOut", buildDef, BuildAssetBundleOptions.AssetBundleStripUnityVersion | BuildAssetBundleOptions.StrictMode, BuildTarget.StandaloneWindows);
+        BuildPipeline.BuildAssetBundles("AssetBundleOut", buildDef, BuildAssetBundleOptions.AssetBundleStripUnityVersion | BuildAssetBundleOptions.StrictMode | BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, BuildTarget.StandaloneWindows);
     }
 }
