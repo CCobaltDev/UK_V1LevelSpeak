@@ -67,7 +67,11 @@ public class Main : BaseUnityPlugin
 	{
 		string[] sections = layerName.Split(' ');
 
-		string postfix = levelToNumber[string.Join(" ", sections.Skip(2))];
+		string key = string.Join(" ", sections.Skip(2));
+
+		if (!levelToNumber.ContainsKey(key)) return null;
+
+		string postfix = levelToNumber[key];
 
 		if (sections[0] == "PRELUDE" && sections[2] == "CLIMAX") postfix = "5";
 
@@ -84,15 +88,18 @@ public class Main : BaseUnityPlugin
 		public static void patch_ShowLayerText(LevelNamePopup __instance)
 		{
 			string baseKey = GetLevelID(layerStringField(__instance));
-			string soundKey = baseKey + "-1";
-			if (clips.ContainsKey(soundKey))
+			if (baseKey != null)
 			{
-				AudioSource src = Camera.main.gameObject.AddComponent<AudioSource>();
-				src.clip = clips[soundKey];
-				src.volume = 1f;
-				src.Play();
-				Destroy(src, 10f);
-				__instance.StartCoroutine(RunInABit(baseKey, src.clip.length));
+				string soundKey = baseKey + "-1";
+				if (clips.ContainsKey(soundKey))
+				{
+					AudioSource src = Camera.main.gameObject.AddComponent<AudioSource>();
+					src.clip = clips[soundKey];
+					src.volume = 1f;
+					src.Play();
+					Destroy(src, 10f);
+					__instance.StartCoroutine(RunInABit(baseKey, src.clip.length));
+				}
 			}
 		}
 
