@@ -75,6 +75,8 @@ public class Main : BaseUnityPlugin
 
 		if (sections[0] == "PRELUDE" && sections[2] == "CLIMAX") postfix = "5";
 
+		if (!layerToNumber.ContainsKey(sections[0])) return null;
+
 		return layerToNumber[sections[0]] + "-" + postfix;
 	}
 
